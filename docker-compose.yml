@@ -1,0 +1,23 @@
+version: '2'
+
+services:
+
+  nginx:
+    build: .
+    # restart: always
+    env_file: .env
+    ports:
+        - "$BIND_ADDRESS:80:80"
+        - "$BIND_ADDRESS:443:443"
+    environment:
+        - CERT_EMAIL=$CERT_EMAIL
+        - CERT_TEST=$CERT_TEST
+        - DOMAINS=$DOMAINS
+        - PROXY_HOST=$PROXY_HOST
+    volumes:
+        - certs:/etc/letsencrypt
+
+volumes:
+  certs:
+    driver: local
+
