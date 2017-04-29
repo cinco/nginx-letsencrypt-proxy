@@ -1,6 +1,8 @@
-FROM nginx:alpine
+FROM nginx:1.12.0-alpine
 
-RUN apk add --update nginx-lua certbot letsencrypt m4 && rm -rf /var/cache/apk/*
+RUN apk update && \
+  apk add certbot letsencrypt-nosudo m4 && \
+  rm -rf /var/cache/apk/*
 
 COPY domain.conf.m4 /etc/nginx/domain.conf.m4
 
