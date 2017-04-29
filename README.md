@@ -2,8 +2,7 @@
 
 _Docker container for NGINX proxy for multiple domains with Let's Encrypt_
 
-There are quite a few NGINX/Let's Encrypt options around. I could not find one that fitted my
-needs, so here is yet another NGINX/Let's Encrypt proxy solution.
+There are quite a few NGINX/Let's Encrypt options around. I could not find one that fitted my needs, so here is yet another NGINX/Let's Encrypt proxy solution.
 
 ## Use Case
 
@@ -20,9 +19,9 @@ Several web servers are running as docker images on the same host. Each should h
 This docker image contains NGINX, Let's Encrypt, and a script to run Let's Encrypt, then create
 the NGINX virtual host configuration files, then run NGINX.
 
-## To Use (With Docker Compose)
+## Example Use (With Docker Compose)
 
-See example [Docker Compose](docker-compose.yml) file, which uses these variables from .env:
+See example [Docker Compose](docker-compose.yml) file, which uses these variables from a [.env](https://docs.docker.com/compose/env-file/) file:
 
 #### CERT_EMAIL
 
@@ -30,9 +29,7 @@ Set ```CERT_EMAIL``` to the email address you'd like for Let's Encrypt's expirat
 
 #### CERT_TEST
 
-If, like me, you end up testing things more times than you think, you may well fall foul of Let's Encrypt's rate limiting.
-
-Set ```CERT_TEST=true``` to create test certificates only, and avoid such issues until you're certain.
+If, like me, you end up testing things more times than you think, you may well fall foul of Let's Encrypt's rate limiting. Set ```CERT_TEST=true``` to create test certificates only and avoid such issues until you're certain.
 
 __Note that you'll have to remove old certificates if you switch from test to live. This can be achieved by removing the certificates docker volume, if you have one.__
 
@@ -63,7 +60,12 @@ PROXY_HOST=172.17.0.1
 As per the example [Docker Compose](docker-compose.yml) file, you'll want to have /etc/letsencrypt as a volume, otherwise
 Let's Encrypt will need to re-create the certificates each time.
 
+## FAQ
+
+### Why Is "restart: always" commented out in the example [Docker Compose](docker-compose.yml) file?
+
+If something goes wrong (such as trying to run Let's Encrypt, when you haven't pointed the domain to your machine), it will re-try until Let's Encrypt [blocks you for a week](https://letsencrypt.org/docs/rate-limits/). Trust me on that one.
+
 ## TO DO
 
-Auto update expired certificates. Currently relying on restarting the container
-
+* Auto update expired certificates. Currently relying on restarting the container
