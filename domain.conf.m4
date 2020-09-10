@@ -21,12 +21,13 @@ server {
   }
 
   location / {
-    client_max_body_size 50M;
-    proxy_set_header Upgrade $http_upgrade;
-    proxy_set_header Connection "upgrade";
-    proxy_set_header Host $http_host;
-    proxy_set_header X-Real-IP $remote_addr;
-    proxy_set_header X-Frame-Options SAMEORIGIN;
-    proxy_pass http://172.17.0.1:8088;
+    return 301 https://pista.decea.gov.br$request_uri;
+    # client_max_body_size 50M;
+    # proxy_set_header Upgrade $http_upgrade;
+    # proxy_set_header Connection "upgrade";
+    # proxy_set_header Host $http_host;
+    # proxy_set_header X-Real-IP $remote_addr;
+    # proxy_set_header X-Frame-Options SAMEORIGIN;
+    # proxy_pass http://172.17.0.1:8088;
   }
 }
