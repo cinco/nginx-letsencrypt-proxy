@@ -33,9 +33,6 @@ do
   echo "domain $DOMAIN"
   certbot certonly --standalone -d $DOMAIN -m $CERT_EMAIL -n --agree-tos $options
   m4 \
-    -DPROXY_HOST=$PROXY_HOST \
-    -DDOMAIN=$DOMAIN \
-    -DPORT=$PORT \
     /etc/nginx/domain.conf.m4 > /etc/nginx/conf.d/${DOMAIN}.conf
 done
 
