@@ -3,7 +3,8 @@ version: '2'
 services:
 
   nginx:
-    image: dougg/nginx-letsencrypt-proxy
+    build: .
+    # image: dougg/nginx-letsencrypt-proxy
     # restart: always
     env_file: .env
     ports:
